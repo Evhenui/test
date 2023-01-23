@@ -31,6 +31,7 @@
         class="nav-item__checkbox"
         v-for="(item, index) in values.options"
         :key="index"
+        @getValue="getValue"
         >{{ item.value[lang] }}
       </CheckBox>
       <ShowAll @click="showAll" v-if="values.options.length > 6" />
@@ -49,6 +50,8 @@ const lang = urlLang ? urlLang : "ru";
 const props = defineProps({
   values: { type: Object, required: true },
 });
+
+const emits = defineEmits(['getValue']);
 
 const checkboxes = reactive({
   suggestions: {
@@ -107,8 +110,8 @@ function showAll() {
   heightContent.value = showFilter.value? `${filterBody.value.scrollHeight}px` : `${initialHeight.value}px`;
 }
 
-function change(a, b) {
-  console.log(a)
+function getValue(val) {
+  emits('getValue', val)
 }
 
 onMounted(() => {

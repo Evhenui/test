@@ -37,7 +37,6 @@
 <script setup>
 import PaginationBtnArrow from "~~/modules/shared/components/buttons/PaginationBtnArrow.vue";
 import SliderCard from "~~/modules/shared/components/slideCard/SlideCard.vue";
-import PaginationBtnNumbers from "~~/modules/home/components/regularSliders/PaginationBtnNumber.vue";
 
 defineProps({
   cards: { type: Array, required: true },

@@ -1,6 +1,6 @@
 <template>
   <section class="main" :class="{ active: activeFilters }">
-    <NavigationBar :activeFilters="activeFilters" />
+    <NavigationBar :activeFilters="activeFilters" @sendCheckboxesValue="sendCheckboxesValue"/>
     <CatalogList 
       class="main__catalog-list" 
       :changeView="changeView" 
@@ -20,6 +20,12 @@ const props = defineProps({
  activeFilters: { type: Boolean, required: false},
  products: { type: Object, required: false},
 });
+
+const emits = defineEmits(['sendData']);
+
+function sendCheckboxesValue(val) {
+  emits('sendData', val)
+}
 
 </script>
 

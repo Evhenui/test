@@ -68,12 +68,11 @@
               class="description"
               :class="[
                 { active: currentNav === activePage },
-                { active: currentNav === 2 },
               ]"
               id="description"
               :contentFromServer="products[0].description[lang]"
             >
-              <h3 class="spec__title">
+              <h3 class="spec__title description">
                 Описание
                 <span class="spec__article">{{ products[0].name[lang] }}</span>
               </h3>
@@ -166,7 +165,7 @@ const currentNav = ref(1);
 const visibilityPrice = ref(false);
 const navHeight = ref("");
 const activePage = ref(1);
-const sliderSize = ref(0);
+const sliderSize = ref('');
 const heightHeader = ref("");
 const timeout = ref(0);
 
@@ -430,13 +429,13 @@ function getWidthSlider() {
 }
 
 function onResize() {
-  clearTimeout(timeout.value)
+/*   clearTimeout(timeout.value)
 
-  timeout.value = setTimeout(() => {
+  timeout.value = setTimeout(() => { */
     calcBlockPriceVisibility();
     calcNavHeight();
     getWidthSlider();
-  }, 500);
+/*   }, 500); */
 }
 
 watch(heightHeaderStore, (val) => {
@@ -602,6 +601,10 @@ onUnmounted(() => {
   &__title {
     @include font(18, 22, 700);
     color: #2b2b2b;
+
+    &.description {
+      margin-bottom: 16px;
+    }
 
     @include bigMobile {
       font-weight: 500;

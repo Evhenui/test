@@ -47,6 +47,8 @@ defineProps({
 const items = ref(null);
 const slider = ref(null);
 
+const sliderWindow = ref(null);
+
 const slideWidth = ref(0);
 const spaceSlides = ref(0);
 const distance = ref(0);
@@ -63,6 +65,8 @@ const startPosition = ref(0);
 function getSizeSlide() {
   slideWidth.value = items.value.children[0].offsetWidth;
   spaceSlides.value = parseInt(getComputedStyle(items.value).gap);
+
+  sliderWindow.value = slider.value.offsetWidth;
 }
 
 function nextSlide() {
@@ -140,8 +144,16 @@ function handleTouchEnd() {
   activeTouches.value = false;
 }
 
+function getActiveButton() {
+  if(sliderWindow.value > slideWidth.value * items.value.children.length) {
+    buttonDisabled.value = true;
+  }
+}
+
+
 onMounted(() => {
   getSizeSlide();
+  getActiveButton();
   window.addEventListener("resize", getSizeSlide);
   window.addEventListener("resize", prevSlide);
 });

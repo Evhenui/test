@@ -30,6 +30,7 @@
         :changeView="changeView" 
         :activeFilters="filtersSwitch" 
         :products="products"
+        @sendData="getData"
       />
     </div>
 
@@ -49,6 +50,8 @@ const props = defineProps({
 
 const selectedFilter = ref(null);
 
+const test = reactive([])
+
 const filterItem = [
   { name: "Евровилка" },
   { name: "1000/900" },
@@ -62,6 +65,12 @@ const selectItems = [
   { title: "Дорогие" },
   { title: "Популярные" },
 ];
+
+function getData(val) {
+  
+  test.push(val)
+  console.log(test)
+}
 
 const changeView = ref(false);
 const activeFilters = ref(false);

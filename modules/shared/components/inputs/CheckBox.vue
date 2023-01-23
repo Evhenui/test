@@ -22,11 +22,12 @@ const props = defineProps({
     modelValue: Boolean,
 })
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue', 'getValue']);
 
 function change() {
   checked.value = !checked.value;
   emits("update:modelValue", checked.value);
+  emits("getValue", title.value.innerText);
 }
 </script>
   

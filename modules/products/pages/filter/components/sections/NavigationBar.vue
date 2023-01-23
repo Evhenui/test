@@ -2,11 +2,12 @@
   <aside class="navigation" :class="{ active: activeFilters }">
     <div class="navigation__wrapper">
       <NavOffers :values="filterOffers" />
-      <FilterPriceControl @minValue="getMinValue"/>
+      <FilterPriceControl @minValue="getMinValue" @maxValue="getMaxValue"/>
       <NavItems 
         v-for="(item, index) in criteria.specifications" 
         :key="index" 
         :values="item"  
+        @getValue="getValue"
       />
     </div>
   </aside>
@@ -26,24 +27,31 @@ const props = defineProps({
   activeFilters: { type: Boolean, required: false },
 });
 
+const emits = defineEmits(['sendCheckboxesValue']);
+
 const filterPower = ref(null);
 
 const filterOffers = ["Акции", "Новинки", "Топ продаж"];
 
-/* const modelValues = reactive({
-  offer:{
-    name: '',
-    value: false
-  },
-  priceRange: {
-    min: 0,
-    max: 0
-  }
-})
+const rangePrice = reactive({
+  min: 0,
+  max: 0
+});
+
+const checkboxes = reactive([]);
 
 function getMinValue(value) {
-  console.log(value)
-} */
+  rangePrice.min = value;
+}
+
+function getMaxValue(value) {
+  rangePrice.max = value;
+}
+
+function getValue(val) {
+  checkboxes.push(val);
+  emits('sendCheckboxesValue', checkboxes)
+}
 </script>
 
 <style lang="scss" scoped>
